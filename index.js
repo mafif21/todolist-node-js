@@ -2,6 +2,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const expressEjsLayouts = require("express-ejs-layouts");
+const dayTime = require("./date");
 
 // initialization
 const app = express();
@@ -14,7 +15,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  res.render("home", { layout: "layouts/main" });
+  const date = dayTime.getDate();
+  console.log(date);
+
+  res.render("home", {
+    layout: "layouts/main",
+    title: date,
+  });
 });
 
 app.listen(port, () => console.log("Connected"));
