@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const expressEjsLayouts = require("express-ejs-layouts");
 const dayTime = require("./date");
+const Task = require("./model/Task");
 
 // initialization
 const app = express();
