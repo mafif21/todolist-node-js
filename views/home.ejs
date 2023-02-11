@@ -4,10 +4,17 @@
 
 <div class="box">
   <% activities.forEach(activity => { %>
-  <div class="item">
-    <input type="checkbox" />
-    <p><%= activity.work %></p>
-  </div>
+  <form action="/delete" method="post">
+    <div class="item">
+      <input
+        type="checkbox"
+        name="check"
+        value="<%= activity._id %>"
+        onchange="this.form.submit()"
+      />
+      <p><%= activity.work %></p>
+    </div>
+  </form>
   <% }) %>
 
   <form class="item" action="/" method="post">

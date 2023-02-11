@@ -34,4 +34,11 @@ app.post("/", (req, res) => {
   });
 });
 
+app.post("/delete", async (req, res) => {
+  Task.findByIdAndDelete(req.body.check, (err) => {
+    if (err) return console.log(err);
+  });
+  res.redirect("/");
+});
+
 app.listen(port, () => console.log("Connected"));
