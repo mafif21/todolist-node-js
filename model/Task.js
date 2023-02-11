@@ -11,4 +11,12 @@ const Task = mongoose.model("Task", {
   },
 });
 
-module.exports = Task;
+const List = mongoose.model("List", {
+  name: {
+    type: String,
+    required: true,
+  },
+  taskList: [Task.schema],
+});
+
+module.exports = { Task, List };
