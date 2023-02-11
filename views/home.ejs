@@ -12,6 +12,7 @@
         value="<%= activity._id %>"
         onchange="this.form.submit()"
       />
+      <input type="hidden" name="listName" value="<%= title %>" />
       <p><%= activity.work %></p>
     </div>
   </form>
@@ -19,6 +20,6 @@
 
   <form class="item" action="/" method="post">
     <input type="text" name="work" placeholder="New Item" autocomplete="off" />
-    <button type="submit">+</button>
+    <button type="submit" value="<%= title %>" name="listName">+</button>
   </form>
 </div>

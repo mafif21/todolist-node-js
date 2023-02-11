@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const expressEjsLayouts = require("express-ejs-layouts");
 const dayTime = require("./date");
 const { Task, List } = require("./model/Task");
+const _ = require("lodash");
 
 // initialization
 const app = express();
@@ -30,12 +31,12 @@ app.get("/", async (req, res) => {
     layout: "layouts/main",
     heading: date,
     activities: datas,
-    title: "today",
+    title: "Today",
   });
 });
 
 app.get("/:customList", (req, res) => {
-  const customName = req.params.customList;
+  const customName = _.capitalize(req.params.customList);
 
   List.findOne({ name: customName }, (error, foundList) => {
     if (foundList) {
@@ -62,18 +63,57 @@ app.get("/:customList", (req, res) => {
 });
 
 app.post("/", (req, res) => {
-  Task.insertMany(req.body, (error, response) => {
-    if (error) return console.log(error);
+  const listName = req.body.listName;
 
-    res.redirect("/");
-  });
+  // udemy method
+  // const newItem = new Task({ work: req.body.work });
+  // if (listName == "Today") {
+  //   newItem.save((err) => {
+  //     if (err) return console.log("cant add");
+  //   });
+  //   res.redirect("/");
+  // } else {
+  //   List.findOne({ name: listName }, (error, foundList) => {
+  //     foundList.taskList.push(newItem);
+  //     foundList.save();
+  //     res.redirect("/" + listName);
+  //   });
+  // }
+
+  if (listName == "Today") {
+    Task.insertMany(req.body, (error, response) => {
+      if (error) return console.log("Cant add data");
+      res.redirect("/");
+    });
+  } else {
+    List.findOne({ name: listName }, (error, foundList) => {
+      foundList.taskList.push(req.body);
+      foundList.save();
+      res.redirect("/" + listName);
+    });
+  }
 });
 
-app.post("/delete", async (req, res) => {
-  Task.findByIdAndDelete(req.body.check, (err) => {
-    if (err) return console.log(err);
-  });
-  res.redirect("/");
+app.post("/delete", (req, res) => {
+  const listName = req.body.listName;
+
+  if (listName == "Today") {
+    Task.findByIdAndDelete(req.body.check, (err) => {
+      if (err) return console.log(err);
+    });
+    res.redirect("/");
+  } else {
+    List.findOneAndUpdate(
+      { name: listName },
+      {
+        $pull: { taskList: { _id: req.body.check } },
+      },
+      (error) => {
+        if (error) return console.log("delete fail");
+        res.redirect("/" + listName);
+      }
+    );
+  }
 });
 
 app.listen(port, () => console.log("Connected"));
