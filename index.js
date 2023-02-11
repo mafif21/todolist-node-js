@@ -15,13 +15,22 @@ app.use(expressEjsLayouts);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
   const date = dayTime.getDate();
-  console.log(date);
+  const datas = await Task.find();
 
   res.render("home", {
     layout: "layouts/main",
     title: date,
+    activities: datas,
+  });
+});
+
+app.post("/", (req, res) => {
+  Task.insertMany(req.body, (error, response) => {
+    if (error) return console.log(error);
+
+    res.redirect("/");
   });
 });
 

@@ -3,18 +3,15 @@
 </div>
 
 <div class="box">
+  <% activities.forEach(activity => { %>
   <div class="item">
     <input type="checkbox" />
-    <p>Sport</p>
+    <p><%= activity.work %></p>
   </div>
+  <% }) %>
 
   <form class="item" action="/" method="post">
-    <input
-      type="text"
-      name="newItem"
-      placeholder="New Item"
-      autocomplete="off"
-    />
-    <button type="submit" name="list">+</button>
+    <input type="text" name="work" placeholder="New Item" autocomplete="off" />
+    <button type="submit">+</button>
   </form>
 </div>
