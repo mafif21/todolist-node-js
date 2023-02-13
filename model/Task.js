@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const url = "mongodb://127.0.0.1:27017/todoapp";
+const url =
+  "mongodb+srv://Afif:Afif21jepara@cluster0.yqbfjfb.mongodb.net/todoapp";
 
 mongoose.set("strictQuery", false);
 mongoose.connect(url);
