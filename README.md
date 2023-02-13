@@ -5,6 +5,7 @@
 - [Overview](#overview)
   - [Links](#links)
   - [Built with](#built-with)
+  - [How to clone](#how-to-clone)
 - [Author](#author)
 
 ## Overview
@@ -17,6 +18,29 @@
 
 - [ExpressJs]
 - [VanillaCss]
+
+### Built with
+
+- npm install, make sure all depedencies are installed
+- create account mongodb atlas
+- create database name is "todoapp"
+- create 2 collections name is "tasks" and "lists"
+- find option "connect you application"
+- copy the link
+- paste in List.js and Task.js at model folder
+- change the url from this
+
+```
+const url =
+  "mongodb+srv://<Name>:<password>@cluster0.yqbfjfb.mongodb.net/?retryWrites=true&w=majority";
+```
+
+- to this
+
+```
+const url =
+  "mongodb+srv://<name>:<password>@cluster0.yqbfjfb.mongodb.net/todoapp";
+```
 
 ## Author
 
