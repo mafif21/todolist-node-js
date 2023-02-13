@@ -19,7 +19,7 @@
 - [ExpressJs]
 - [VanillaCss]
 
-### Built with
+### How To Clone
 
 - npm install, make sure all depedencies are installed
 - create account mongodb atlas
